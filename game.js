@@ -82,7 +82,7 @@ class Game {
 
   ai() {
     const player = this.boards.player;
-    const tree = new MCTS(this.boards, player);
+    const tree = new MCTS(this.boards, player, 2000);
     const move = tree.selectMove();
     return move;
   }
@@ -139,10 +139,13 @@ class Game {
         logBoards(this.boards);
         if (error) console.log(error);
         error = null;
-        const [board, cell] = await this.promptMoves();
-        playBoards(this.boards, Number(board), Number(cell));
-        const [board2, cell2] = this.ai();
-        playBoards(this.boards, Number(board2), Number(cell2));
+        if (this.boards.player === 1) {
+          const [board, cell] = await this.promptMoves();
+          playBoards(this.boards, Number(board), Number(cell));
+        } else {
+          const [board2, cell2] = this.ai();
+          playBoards(this.boards, Number(board2), Number(cell2));
+        }
       } catch (e) {
         error = e.message;
       }
