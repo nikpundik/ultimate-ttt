@@ -1,5 +1,7 @@
 import { cloneBoards, getBoardsMoves, playBoards } from "./utils.js";
 
+// adapted from https://github.com/SethPipho/monte-carlo-tree-search-js
+
 class MCTSNode {
   constructor(moves, parent) {
     this.parent = parent;
